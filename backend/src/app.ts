@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import { Pool } from 'pg';
 import createAuthRouter from './routes/authRoutes';
 import createPostRouter from './routes/postRoutes';
+import contactRouter from './routes/contactRoutes';
 
 
 dotenv.config();
@@ -33,6 +34,7 @@ app.use(express.json());
 
 app.use('/api/auth', createAuthRouter(pool));
 app.use('/api/posts', createPostRouter(pool));
+app.use('/api/contact', contactRouter)
 
 app.get('/', (req, res) => {
     res.send('Portifolio API working properly!');
