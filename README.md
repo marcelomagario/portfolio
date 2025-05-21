@@ -16,14 +16,14 @@ The Backend has been developed using Node.js with TypeScript and Express. It con
 * **DB Client:** `pg` (Node.js PostgreSQL client)
 * **Authentication:** JWT (JSON Web Tokens) with `bcryptjs` for password hashing.
 * **Environment Variables:** `dotenv`
-* **Email Service:** AWS SES (Simple Email Service) - *Integration in progress*.
+* **Email Service:** AWS SES (Simple Email Service) - **Successfully Integrated!**
 
 **Implemented Features:**
 
 1.  **Environment Setup:**
     * Folder structure for Backend (`backend/src`).
     * TypeScript configuration (`tsconfig.json`) to compile from `src` to `dist`.
-    * Environment variable management with `.env` (including DB credentials and JWT Secret).
+    * Environment variable management with `.env` (including DB credentials and JWT Secret). **Crucial order of `dotenv.config()` execution is ensured.**
 
 2.  **Database (PostgreSQL):**
     * Modeling and creation of `users`, `posts`, `tags`, `post_tags` tables.
@@ -39,8 +39,14 @@ The Backend has been developed using Node.js with TypeScript and Express. It con
     * **List all Posts (`GET /api/posts`):** Public route to display all blog posts.
     * **Get Post by ID (`GET /api/posts/:id`):** Public route to display a specific post by its ID.
     * **Create Post (`POST /api/posts`):** Private route (requires JWT) to add new posts, including tag association.
-    * **Update Post (`PUT /api/posts/:id`):** Private route (requires JWT) to modify existing posts and their tags.
-    * **Delete Post (`DELETE /api/posts/:id`):** Private route (requires JWT) to remove posts.
+    * **Update Post (`PUT /api/posts/:id`):** Private route (requiring JWT) to modify existing posts and their tags.
+    * **Delete Post (`DELETE /api/posts/:id`):** Private route (requiring JWT) to remove posts.
+
+5.  **Contact Module (AWS SES):**
+    * **Send Contact Email (`POST /api/contact`):** Allows users to send messages via a contact form, utilizing AWS SES for email delivery. Includes robust error handling and validation.
+
+6.  **Tag Listing Module:**
+    * **List all Tags (`GET /api/tags`):** Public route to retrieve all available tags from the database, ordered alphabetically.
 
 ---
 
@@ -48,19 +54,11 @@ The Backend has been developed using Node.js with TypeScript and Express. It con
 
 ### Backend (API Completion)
 
-1.  **Contact Module (AWS SES):**
-    * Implement the `POST /api/contact` route to send emails from the portfolio's contact form.
-    * Utilize AWS SES for email sending.
+1.  **Global Error Handling:**
+    * Implement a centralized Express error handling middleware to manage errors consistently across all routes.
 
-2.  **Tag Routes:**
-    * Implement routes to list all tags (`GET /api/tags`).
-    * (Optional): CRUD routes to manage tags directly (though they are already created/associated via posts).
-
-3.  **Global Error Handling:**
-    * Implement a centralized Express error handling middleware to manage errors consistently.
-
-4.  **CORS Configuration:**
-    * Add CORS middleware to allow the Frontend (which will be on another port/domain) to communicate with the Backend.
+2.  **CORS Configuration:**
+    * Add CORS middleware to allow the Frontend (which will be on another port/domain) to communicate with the Backend securely.
 
 ### Frontend
 
@@ -70,18 +68,18 @@ The Backend has been developed using Node.js with TypeScript and Express. It con
 2.  **Main Pages:**
     * Home Page.
     * About Me Page.
-    * Portfolio/Projects Page.
-    * Blog Page (post listing).
+    * Portfolio/Projetos Page.
+    * Blog Page (listing of posts).
     * Post Detail Page.
     * Contact Page (form).
 
 3.  **Backend Integration:**
-    * Consume Backend APIs to display posts and send contact form data.
+    * Consume the Backend APIs to display posts, list tags, and send data from the contact form.
 
 4.  **CMS (Content Management System):**
     * Login Interface.
     * Dashboard to manage posts (create, edit, delete).
-    * Potentially manage tags and users.
+    * Potentially manage tags and users directly.
 
 ---
 
@@ -91,7 +89,7 @@ The Backend has been developed using Node.js with TypeScript and Express. It con
 
 * Node.js (v18+) and npm (or yarn)
 * PostgreSQL (v12+)
-* AWS account with SES configured and email verified (for the contact module)
+* AWS account with SES configured and email verified (for the contact module). **Ensure your IAM credentials have SES sending permissions and are correctly placed in `.env` with `dotenv.config()` at the very top of `app.ts`.**
 
 ### Database Setup
 
@@ -231,5 +229,8 @@ The Backend has been developed using Node.js with TypeScript and Express. It con
 * **Update Post:** `PUT /api/posts/:id` (requires `Authorization: Bearer <TOKEN>`)
     * Body: `{ "title": "...", "content": "...", "tags": ["tag1", "tag2"] }`
 * **Delete Post:** `DELETE /api/posts/:id` (requires `Authorization: Bearer <TOKEN>`)
+* **Send Contact Email:** `POST /api/contact`
+    * Body: `{ "name": "Your Name", "email": "your_email@example.com", "message": "Your message here." }`
+* **List all Tags:** `GET /api/tags`
 
 ---
