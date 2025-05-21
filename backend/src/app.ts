@@ -1,6 +1,8 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import { Pool } from 'pg';
+import createAuthRouter from './routes/authRoutes';
+
 
 dotenv.config();
 
@@ -27,6 +29,10 @@ pool.connect((err, client, done) => {
 });
 
 app.use(express.json());
+
+// Autentication (for CMS)
+app.use('/api/auth', createAuthRouter(pool));
+
 
 app.get('/', (req, res) => {
     res.send('Portifolio API working properly!');
