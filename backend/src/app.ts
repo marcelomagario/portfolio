@@ -6,6 +6,7 @@ import createPostRouter from './routes/postRoutes';
 import contactRouter from './routes/contactRoutes';
 import createTagRouter from './routes/tagRoutes';
 import errorHandler, { CustomError } from './middlewares/errorHandler';
+import cors from 'cors';
 
 
 dotenv.config();
@@ -33,6 +34,21 @@ pool.connect((err, client, done) => {
 });
 
 app.use(express.json());
+
+// For development, allow all origins
+app.use(cors());
+
+// For production, you should restrict origins like this:
+/*
+const corsOptions = {
+    origin: 'http://localhost:3000', // Replace with your frontend URL in production
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true, // Allow cookies to be sent
+    optionsSuccessStatus: 204
+};
+app.use(cors(corsOptions));
+*/
+
 
 app.use('/api/auth', createAuthRouter(pool));
 app.use('/api/posts', createPostRouter(pool));
