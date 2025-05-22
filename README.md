@@ -17,13 +17,14 @@ The Backend has been developed using Node.js with TypeScript and Express. It con
 * **Authentication:** JWT (JSON Web Tokens) with `bcryptjs` for password hashing.
 * **Environment Variables:** `dotenv`
 * **Email Service:** AWS SES (Simple Email Service) - **Successfully Integrated!**
+* **CORS Management:** `cors` middleware
 
 **Implemented Features:**
 
 1.  **Environment Setup:**
     * Folder structure for Backend (`backend/src`).
     * TypeScript configuration (`tsconfig.json`) to compile from `src` to `dist`.
-    * Environment variable management with `.env` (including DB credentials and JWT Secret). **Crucial order of `dotenv.config()` execution is ensured.**
+    * Environment variable management with `.env`. **Crucial order of `dotenv.config()` execution is ensured for proper variable loading.**
 
 2.  **Database (PostgreSQL):**
     * Modeling and creation of `users`, `posts`, `tags`, `post_tags` tables.
@@ -48,19 +49,17 @@ The Backend has been developed using Node.js with TypeScript and Express. It con
 6.  **Tag Listing Module:**
     * **List all Tags (`GET /api/tags`):** Public route to retrieve all available tags from the database, ordered alphabetically.
 
+7.  **Global Error Handling:**
+    * **Centralized Middleware:** Implemented a global error handling middleware to gracefully manage and format API responses for unexpected errors.
+
+8.  **CORS Configuration:**
+    * **Cross-Origin Resource Sharing:** Configured middleware to enable secure communication between the backend and a frontend application potentially hosted on a different origin.
+
 ---
 
 ## Next Steps
 
-### Backend (API Completion)
-
-1.  **Global Error Handling:**
-    * Implement a centralized Express error handling middleware to manage errors consistently across all routes.
-
-2.  **CORS Configuration:**
-    * Add CORS middleware to allow the Frontend (which will be on another port/domain) to communicate with the Backend securely.
-
-### Frontend
+### Frontend Development (Main Focus)
 
 1.  **Project Structure:**
     * Set up a React.js project (or framework of your choice) for the Frontend.
@@ -74,7 +73,7 @@ The Backend has been developed using Node.js with TypeScript and Express. It con
     * Contact Page (form).
 
 3.  **Backend Integration:**
-    * Consume the Backend APIs to display posts, list tags, and send data from the contact form.
+    * Consume the Backend APIs to display posts, list tags, send data from the contact form, and handle CMS interactions.
 
 4.  **CMS (Content Management System):**
     * Login Interface.
@@ -151,86 +150,3 @@ The Backend has been developed using Node.js with TypeScript and Express. It con
     GRANT ALL PRIVILEGES ON TABLE tags TO portfolio_user;
     GRANT ALL PRIVILEGES ON SEQUENCE tags_id_seq TO portfolio_user;
     GRANT ALL PRIVILEGES ON TABLE post_tags TO portfolio_user;
-    ```
-5.  **Exit psql:**
-    ```sql
-    \q
-    ```
-
-### Backend Setup
-
-1.  **Navigate to the `backend` folder:**
-    ```bash
-    cd backend
-    ```
-2.  **Create a `.env` file in the `backend` folder's root** and populate it with your credentials:
-    ```env
-    # Portfolio Backend Environment Variables
-
-    # Server Configuration
-    PORT=3001
-
-    # PostgreSQL Database Credentials
-    DB_HOST=localhost
-    DB_PORT=5432
-    DB_USER=portfolio_user
-    DB_PASSWORD=your_secret_password
-    DB_DATABASE=portfolio_db
-
-    # JWT Authentication Secret (for CMS)
-    JWT_SECRET=your_long_and_random_secret_string
-
-    # AWS SES Configuration (for email sending)
-    AWS_ACCESS_KEY_ID=YOUR_AWS_ACCESS_KEY_ID
-    AWS_SECRET_ACCESS_KEY=YOUR_AWS_SECRET_ACCESS_KEY
-    AWS_REGION=your_aws_region # e.g., us-east-1, sa-east-1
-    CONTACT_EMAIL_SOURCE=your_verified_ses_email@example.com
-    CONTACT_EMAIL_DESTINATION=your_destination_email@example.com
-    ```
-3.  **Install dependencies:**
-    ```bash
-    npm install
-    ```
-4.  **Add `.env` to `.gitignore` in the project root (`portfolio/.gitignore`):**
-    ```
-    # Ignore environment files
-    .env
-
-    # Ignore Node modules
-    node_modules/
-
-    # Ignore build directories
-    dist/
-    ```
-
-### Running the Backend
-
-1.  **Navigate to the `backend` folder:**
-    ```bash
-    cd backend
-    ```
-2.  **Start the server:**
-    ```bash
-    npx ts-node src/app.ts
-    ```
-    The server will be running on `http://localhost:3001`.
-
-### Testing the API (using Thunder Client/Postman/Insomnia)
-
-* **Register (CMS):** `POST /api/auth/register`
-    * Body: `{ "username": "youradmin", "password": "your_password" }`
-* **Login (CMS):** `POST /api/auth/login`
-    * Body: `{ "username": "youradmin", "password": "your_password" }`
-    * **Capture the JWT token from the response!**
-* **Create Post:** `POST /api/posts` (requires `Authorization: Bearer <TOKEN>`)
-    * Body: `{ "title": "...", "content": "...", "tags": ["tag1", "tag2"] }`
-* **List Posts:** `GET /api/posts`
-* **Get Post by ID:** `GET /api/posts/:id`
-* **Update Post:** `PUT /api/posts/:id` (requires `Authorization: Bearer <TOKEN>`)
-    * Body: `{ "title": "...", "content": "...", "tags": ["tag1", "tag2"] }`
-* **Delete Post:** `DELETE /api/posts/:id` (requires `Authorization: Bearer <TOKEN>`)
-* **Send Contact Email:** `POST /api/contact`
-    * Body: `{ "name": "Your Name", "email": "your_email@example.com", "message": "Your message here." }`
-* **List all Tags:** `GET /api/tags`
-
----
