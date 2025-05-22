@@ -4,6 +4,7 @@ import { Pool } from 'pg';
 import createAuthRouter from './routes/authRoutes';
 import createPostRouter from './routes/postRoutes';
 import contactRouter from './routes/contactRoutes';
+import errorHandler, { CustomError } from './middlewares/errorHandler';
 
 
 dotenv.config();
@@ -34,11 +35,13 @@ app.use(express.json());
 
 app.use('/api/auth', createAuthRouter(pool));
 app.use('/api/posts', createPostRouter(pool));
-app.use('/api/contact', contactRouter)
+app.use('/api/contact', contactRouter);
 
 app.get('/', (req, res) => {
     res.send('Portifolio API working properly!');
 });
+
+app.use(errorHandler);
 
 app.listen(port, () => {
     console.log(`Server running on http://localhost:${port}`);
