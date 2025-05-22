@@ -4,6 +4,7 @@ import { Pool } from 'pg';
 import createAuthRouter from './routes/authRoutes';
 import createPostRouter from './routes/postRoutes';
 import contactRouter from './routes/contactRoutes';
+import createTagRouter from './routes/tagRoutes';
 import errorHandler, { CustomError } from './middlewares/errorHandler';
 
 
@@ -36,6 +37,8 @@ app.use(express.json());
 app.use('/api/auth', createAuthRouter(pool));
 app.use('/api/posts', createPostRouter(pool));
 app.use('/api/contact', contactRouter);
+app.use('/api/tags', createTagRouter(pool));
+
 
 app.get('/', (req, res) => {
     res.send('Portifolio API working properly!');
