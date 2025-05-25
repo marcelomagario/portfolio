@@ -1,42 +1,215 @@
+/* App.css */
+
+:root {
+  --background-color: #16191F; /* Fundo escuro da AWS */
+  --text-color: #FFFFFF;
+  --primary-color: #FF9900; /* Laranja do botão da AWS */
+  --secondary-text-color: #d1d1d1;
+  --card-background-color: #23252d;
+  --border-color: #3e4149;
+}
+
+body {
+  margin: 0;
+  font-family: 'Helvetica', 'Arial', sans-serif;
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
 #root {
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
+  text-align: left;
+}
+
+/* --- Navigation --- */
+nav {
+  background-color: var(--card-background-color);
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+  border: 1px solid var(--border-color);
+}
+
+nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+}
+
+nav a {
+  color: var(--text-color);
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1.1rem;
+  transition: color 0.3s ease;
+}
+
+nav a:hover {
+  color: var(--primary-color);
+}
+
+/* --- General Content --- */
+.content {
+  padding: 1rem;
+}
+
+h1, h2, h3 {
+  color: var(--text-color);
+}
+
+h1 {
+  font-size: 2.0rem;
+  margin-bottom: 1rem;
+}
+
+h2 {
+  font-size: 1.5rem;
+  border-bottom: 2px solid var(--primary-color);
+  padding-bottom: 0.5rem;
+  margin-top: 3rem;
+  margin-bottom: 1.5rem;
+}
+
+p {
+  color: var(--secondary-text-color);
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+a {
+  color: var(--primary-color);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* --- Buttons --- */
+.btn {
+  display: inline-block;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
   text-align: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.btn-primary {
+  background-color: var(--primary-color);
+  color: var(--background-color);
+  font-size: 1.1rem;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.btn-primary:hover {
+  background-color: #e68a00;
+  transform: translateY(-2px);
+  text-decoration: none;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+/* --- Blog Preview on Home Page --- */
+.blog-preview-container {
+  margin-top: 3rem;
 }
 
-.card {
-  padding: 2em;
+.blog-post-summary {
+  background-color: var(--card-background-color);
+  padding: 1.5rem;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  border: 1px solid var(--border-color);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.read-the-docs {
-  color: #888;
+.blog-post-summary:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.blog-post-summary h3 a {
+  color: var(--text-color);
+  text-decoration: none;
+}
+
+.blog-post-summary h3 a:hover {
+  color: var(--primary-color);
+}
+
+.blog-post-summary p {
+  color: var(--secondary-text-color);
+}
+
+.read-more-container {
+    text-align: center;
+    margin-top: 2rem;
+}
+
+/* --- Contact Page --- */
+.contact-page-container ul {
+    list-style: none;
+    padding: 0;
+}
+
+.contact-page-container li {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  margin-top: 2rem;
+  margin-bottom: 3rem;
+  max-width: 720px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  color: var(--secondary-text-color);
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 12px;
+  font-size: 1rem;
+  color: var(--text-color);
+  background-color: var(--card-background-color);
+  border: 1px solid var(--border-color);
+  border-radius: 5px;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 8px rgba(255, 153, 0, 0.5);
+}
+
+.contact-form .btn {
+  align-self: flex-start;
+}
+
+.contact-form .btn:disabled {
+  background-color: #5a5a5a;
+  color: #999;
+  cursor: not-allowed;
+  transform: none;
+  text-decoration: none;
 }

@@ -43,9 +43,14 @@ const ContactPage: React.FC = () => {
     };
 
     return (
-        <div className="contact-container">
+        <div className="contact-page-container">
             <h1>Contact Me</h1>
-            <p>Feel free to reach out with any questions or collaboration opportunities!</p>
+            
+            <p>
+                If you have a project in mind, want to discuss a potential role, or just want to talk tech, 
+                please don't hesitate to reach out. Fill this form below to get in touch with me or find 
+                me through my professional networks.
+            </p>
 
             <form onSubmit={handleSubmit} className="contact-form">
                 <div className="form-group">
@@ -81,17 +86,25 @@ const ContactPage: React.FC = () => {
                     ></textarea>
                 </div>
 
-                <button type="submit" disabled={status === 'loading'}>
+                <button type="submit" className="btn btn-primary" disabled={status === 'loading'}>
                     {status === 'loading' ? 'Sending...' : 'Send Message'}
                 </button>
             </form>
 
-            {status === 'success' && (
-                <p style={{ color: 'green' }}>{responseMessage}</p>
+            {status !== 'idle' && responseMessage && (
+                 <div className={`status-message ${status}`}>
+                    <p>{responseMessage}</p>
+                </div>
             )}
-            {status === 'error' && (
-                <p style={{ color: 'red' }}>{responseMessage}</p>
-            )}
+
+            <div className="professional-networks">
+                <h2>Or find me on my networks</h2>
+                <ul>
+                    <li>📧 Email: <a href="mailto:marcelomagario@gmail.com">marcelomagario@gmail.com</a></li>
+                    <li>🔗 LinkedIn: <a href="https://www.linkedin.com/in/marcelomagario" target="_blank" rel="noopener noreferrer">https://www.linkedin.com/in/marcelomagario/</a></li>
+                    <li>💻 GitHub: <a href="https://github.com/marcelomagario" target="_blank" rel="noopener noreferrer">https://github.com/marcelomagario</a></li>
+                </ul>
+            </div>
         </div>
     );
 };

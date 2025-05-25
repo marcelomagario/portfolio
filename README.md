@@ -1,59 +1,55 @@
 # Personal Portfolio Project
 
-This repository contains the source code for my personal portfolio, which includes a blog and a basic Content Management System (CMS). The project is divided into a Backend (API) and a Frontend (yet to be developed).
+This repository contains the source code for my personal portfolio, which includes a blog and a Content Management System (CMS). The project is divided into a Node.js Backend (API) and a React Frontend.
 
 ## Current Project Status
 
-### Backend (API)
+The project is functional, with a complete backend API and a partially developed frontend that already consumes several backend endpoints.
 
-The Backend has been developed using Node.js with TypeScript and Express. It connects to a PostgreSQL database.
+### Backend (API) - Complete
+
+The Backend was developed using Node.js with TypeScript and Express, connecting to a PostgreSQL database.
 
 **Technologies Used:**
 * **Language:** TypeScript
 * **Runtime:** Node.js
 * **Web Framework:** Express.js
 * **Database:** PostgreSQL
-* **DB Client:** `pg` (Node.js PostgreSQL client)
-* **Authentication:** JWT (JSON Web Tokens) with `bcryptjs` for password hashing.
-* **Environment Variables:** `dotenv`
-* **Email Service:** AWS SES (Simple Email Service) - **Successfully Integrated!**
+* **Authentication:** JWT (JSON Web Tokens) with `bcryptjs`
+* **Email Service:** AWS SES (Simple Email Service)
 * **CORS Management:** `cors` middleware
 
 **Implemented Features:**
+* **Authentication Module:** Secure user registration and login for the CMS.
+* **Blog Posts CRUD:** Full API for creating, reading, updating, and deleting blog posts and their associated tags.
+* **Contact Form Endpoint:** An endpoint (`/api/contact`) that uses AWS SES to forward messages from the portfolio's contact form.
+* **Public Endpoints:** Routes to list all posts and tags for the public-facing site.
+* **Global Error Handling:** Centralized middleware for consistent error responses.
 
-1.  **Environment Setup:**
-    * Folder structure for Backend (`backend/src`).
-    * TypeScript configuration (`tsconfig.json`) to compile from `src` to `dist`.
-    * Environment variable management with `.env`. **Crucial order of `dotenv.config()` execution is ensured for proper variable loading.**
+### Frontend (React + TypeScript) - In Progress
 
-2.  **Database (PostgreSQL):**
-    * Modeling and creation of `users`, `posts`, `tags`, `post_tags` tables.
-    * Configuration of a dedicated user (`portfolio_user`) with appropriate permissions.
-    * Stable Backend connection to the database.
+The frontend is built with React and TypeScript, using Vite as the build tool. It features a modern, responsive dark theme.
 
-3.  **Authentication Module (for CMS):**
-    * **User Registration (`POST /api/auth/register`):** Allows registering a new user (admin for the CMS), with secure password hashing.
-    * **User Login (`POST /api/auth/login`):** Authenticates a user and returns a JWT for access to protected routes.
-    * **Authentication Middleware (`authenticateToken`):** Protects routes requiring a valid JWT.
+**Technologies Used:**
+* **Library:** React.js
+* **Language:** TypeScript
+* **Routing:** `react-router-dom`
+* **Styling:** Global CSS with CSS Variables
 
-4.  **Blog Posts Module:**
-    * **List all Posts (`GET /api/posts`):** Public route to display all blog posts.
-    * **Get Post by ID (`GET /api/posts/:id`):** Public route to display a specific post by its ID.
-    * **Create Post (`POST /api/posts`):** Private route (requires JWT) to add new posts, including tag association.
-    * **Update Post (`PUT /api/posts/:id`):** Private route (requiring JWT) to modify existing posts and their tags.
-    * **Delete Post (`DELETE /api/posts/:id`):** Private route (requiring JWT) to remove posts.
+**Implemented Features:**
+1.  **Project Setup:**
+    * React + TypeScript project initialized with Vite.
+    * Clear folder structure for pages and components.
 
-5.  **Contact Module (AWS SES):**
-    * **Send Contact Email (`POST /api/contact`):** Allows users to send messages via a contact form, utilizing AWS SES for email delivery. Includes robust error handling and validation.
+2.  **Core Pages & Components:**
+    * **Home Page (`/`):** Displays a professional summary and a preview of the three most recent blog posts fetched from the API.
+    * **Contact Page (`/contact`):** Contains a fully functional contact form that sends messages through the backend API. Includes loading and success/error status feedback for the user.
+    * **Navigation:** A persistent navigation bar for easy routing between pages.
 
-6.  **Tag Listing Module:**
-    * **List all Tags (`GET /api/tags`):** Public route to retrieve all available tags from the database, ordered alphabetically.
-
-7.  **Global Error Handling:**
-    * **Centralized Middleware:** Implemented a global error handling middleware to gracefully manage and format API responses for unexpected errors.
-
-8.  **CORS Configuration:**
-    * **Cross-Origin Resource Sharing:** Configured middleware to enable secure communication between the backend and a frontend application potentially hosted on a different origin.
+3.  **Backend Integration:**
+    * Successfully fetching and displaying blog posts on the Home Page.
+    * Successful integration of the Contact Form with the `/api/contact` endpoint.
+    * Robust handling of API states (loading, success, error) during data fetching.
 
 ---
 
@@ -61,24 +57,21 @@ The Backend has been developed using Node.js with TypeScript and Express. It con
 
 ### Frontend Development (Main Focus)
 
-1.  **Project Structure:**
-    * Set up a React.js project (or framework of your choice) for the Frontend.
+1.  **Blog Functionality:**
+    * Build the main Blog page (`/blog`) to list *all* posts.
+    * Implement pagination and a search/filter by tag feature.
+    * Create the detailed Post view (`/blog/:id`) to display a single post's full content.
 
-2.  **Main Pages:**
-    * Home Page.
-    * About Me Page.
-    * Portfolio/Projetos Page.
-    * Blog Page (listing of posts).
-    * Post Detail Page.
-    * Contact Page (form).
+2.  **Portfolio Section:**
+    * Develop a dedicated page (`/portfolio`) to showcase projects.
 
-3.  **Backend Integration:**
-    * Consume the Backend APIs to display posts, list tags, send data from the contact form, and handle CMS interactions.
+3.  **CMS (Content Management System):**
+    * Create the CMS login interface.
+    * Build the admin dashboard to manage blog posts (create, edit, delete) by consuming the protected API routes.
 
-4.  **CMS (Content Management System):**
-    * Login Interface.
-    * Dashboard to manage posts (create, edit, delete).
-    * Potentially manage tags and users directly.
+4.  **UI/UX Refinements:**
+    * Enhance mobile responsiveness across all pages.
+    * Refine styles and add subtle animations or transitions.
 
 ---
 
@@ -86,11 +79,47 @@ The Backend has been developed using Node.js with TypeScript and Express. It con
 
 ### Prerequisites
 
-* Node.js (v18+) and npm (or yarn)
+* Node.js (v18+) and npm
 * PostgreSQL (v12+)
-* AWS account with SES configured and email verified (for the contact module). **Ensure your IAM credentials have SES sending permissions and are correctly placed in `.env` with `dotenv.config()` at the very top of `app.ts`.**
+* An AWS account with SES configured (for the contact module).
 
-### Database Setup
+### Backend Setup
+
+1.  **Navigate to the backend directory:**
+    ```bash
+    cd backend
+    ```
+2.  **Install dependencies:**
+    ```bash
+    npm install
+    ```
+3.  **Setup Database:** Follow the SQL instructions in the "Database Setup" section below to create the database, user, and tables.
+4.  **Environment Variables:** Create a `.env` file in the `/backend` root and populate it with your database credentials and AWS SES keys.
+5.  **Run the server:**
+    ```bash
+    npm run dev
+    ```
+    The API will be running on `http://localhost:3001`.
+
+### Frontend Setup
+
+1.  **Navigate to the frontend directory:**
+    ```bash
+    cd frontend
+    ```
+2.  **Install dependencies:**
+    ```bash
+    npm install
+    ```
+3.  **Run the development server:**
+    ```bash
+    npm run dev
+    ```
+    The React application will be available at `http://localhost:5173` (or another port if 5173 is busy).
+
+---
+
+### Database Setup (SQL)
 
 1.  **Access PostgreSQL:**
     ```bash
@@ -106,7 +135,6 @@ The Backend has been developed using Node.js with TypeScript and Express. It con
     ```
 3.  **Create Tables:**
     ```sql
-    -- users table
     CREATE TABLE users (
         id SERIAL PRIMARY KEY,
         username VARCHAR(255) UNIQUE NOT NULL,
@@ -114,7 +142,6 @@ The Backend has been developed using Node.js with TypeScript and Express. It con
         created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
     );
 
-    -- posts table
     CREATE TABLE posts (
         id SERIAL PRIMARY KEY,
         title VARCHAR(255) NOT NULL,
@@ -123,13 +150,11 @@ The Backend has been developed using Node.js with TypeScript and Express. It con
         updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
     );
 
-    -- tags table
     CREATE TABLE tags (
         id SERIAL PRIMARY KEY,
         name VARCHAR(255) UNIQUE NOT NULL
     );
 
-    -- post_tags join table
     CREATE TABLE post_tags (
         post_id INTEGER NOT NULL,
         tag_id INTEGER NOT NULL,
@@ -138,15 +163,8 @@ The Backend has been developed using Node.js with TypeScript and Express. It con
         FOREIGN KEY (tag_id) REFERENCES tags(id) ON DELETE CASCADE
     );
     ```
-4.  **Grant Permissions to `portfolio_user` (inside `psql` and `\c portfolio_db`):**
+4.  **Grant Table Permissions:**
     ```sql
     GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO portfolio_user;
     GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO portfolio_user;
-    -- If needed, for existing tables individually:
-    GRANT ALL PRIVILEGES ON TABLE users TO portfolio_user;
-    GRANT ALL PRIVILEGES ON SEQUENCE users_id_seq TO portfolio_user;
-    GRANT ALL PRIVILEGES ON TABLE posts TO portfolio_user;
-    GRANT ALL PRIVILEGES ON SEQUENCE posts_id_seq TO portfolio_user;
-    GRANT ALL PRIVILEGES ON TABLE tags TO portfolio_user;
-    GRANT ALL PRIVILEGES ON SEQUENCE tags_id_seq TO portfolio_user;
-    GRANT ALL PRIVILEGES ON TABLE post_tags TO portfolio_user;
+    ```
