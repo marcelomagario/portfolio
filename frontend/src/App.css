@@ -302,3 +302,66 @@ a:hover {
   color: var(--primary-color); /* Laranja */
   text-shadow: 0 0 5px rgba(255, 153, 0, 0.5);
 }
+
+/* --- Admin Dashboard --- */
+.admin-posts-list {
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.admin-post-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    background-color: var(--card-background-color);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.admin-post-item:last-child {
+    border-bottom: none;
+}
+
+.admin-post-item .post-title {
+    font-weight: bold;
+}
+
+.admin-post-item .post-actions {
+    display: flex;
+    gap: 1rem;
+}
+
+.btn-danger {
+    background-color: #a72828;
+    color: var(--text-color);
+}
+.btn-danger:hover {
+    background-color: #c82333;
+    transform: translateY(-2px);
+    text-decoration: none;
+}
+
+/* --- Create Post Page - Tags --- */
+.tags-checkbox-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    background-color: var(--background-color);
+    border: 1px solid var(--border-color);
+    padding: 1rem;
+    border-radius: 5px;
+}
+
+.tag-checkbox-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Remove o estilo padrão da label para não conflitar */
+.tag-checkbox-item label {
+    font-weight: normal;
+    color: var(--text-color);
+    margin-bottom: 0;
+}
