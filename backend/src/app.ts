@@ -15,11 +15,14 @@ const app = express();
 const port = process.env.PORT || 3001; 
 
 const pool = new Pool({
-user: process.env.DB_USER,
-host: process.env.DB_HOST,
-database: process.env.DB_DATABASE,
-password: process.env.DB_PASSWORD,
-port: parseInt(process.env.DB_PORT || '5432'), 
+    user: process.env.DB_USER,
+    host: process.env.DB_HOST,
+    database: process.env.DB_DATABASE,
+    password: process.env.DB_PASSWORD,
+    port: parseInt(process.env.DB_PORT || '5432'),
+    ssl: {
+        rejectUnauthorized: false // Necessário para conexão com RDS
+    }
 });
 
 pool.connect((err, client, done) => {

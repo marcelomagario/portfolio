@@ -1,0 +1,26 @@
+-- Configurar o método de autenticação para trust para conexões locais
+ALTER SYSTEM SET listen_addresses = '*';
+
+-- Criar o usuário se não existir
+DO
+$do$
+BEGIN
+   IF NOT EXISTS (
+      SELECT FROM pg_catalog.pg_roles
+      WHERE  rolname = current_setting('POSTGRES_USER')) THEN
+      EXECUTE format('CREATE USER %I WITH PASSWORD %L', 
+        current_setting('POSTGRES_USER'),
+        current_setting('POSTGRES_PASSWORD')
+      );
+   END IF;
+END
+$do$;
+
+-- Garantir que o usuário tenha todas as permissões necessárias
+GRANT ALL PRIVILEGES ON DATABASE ${POSTGRES_DB} TO ${POSTGRES_USER};
+GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO ${POSTGRES_USER};
+GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO ${POSTGRES_USER};
+
+-- Configurar pg_hba.conf para permitir conexões
+ALTER SYSTEM SET hba_file = '/var/lib/postgresql/data/pg_hba.conf';
+COPY (SELECT 'host    all             all             0.0.0.0/0               md5') TO '/var/lib/postgresql/data/pg_hba.conf'; 
