@@ -1,6 +1,6 @@
 # Personal Portfolio
 
-This is a personal portfolio project that uses a microservices architecture, with a Node.js backend and React frontend.
+This is a personal portfolio project that uses a Node.js backend and React frontend.
 
 ## Project Status
 
