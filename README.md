@@ -1,6 +1,11 @@
 # Personal Portfolio
 
-This is a personal portfolio project that uses a Node.js backend and React frontend.
+This is a full-stack portfolio project built to showcase my skills in backend and frontend development.
+
+The backend uses Node.js, Express, PostgreSQL, Redis and AWS SES for email handling.  
+The frontend is a React + TypeScript SPA with protected routes and dynamic content.
+
+I use this project to experiment with architecture patterns, authentication, Docker, testing, and deployment strategies.
 
 ## Project Status
 
