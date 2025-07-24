@@ -1,5 +1,13 @@
 # 📦 Personal Portfolio
 
+![TypeScript](https://img.shields.io/badge/TypeScript-5.x-blue)
+![Node.js](https://img.shields.io/badge/Node.js-18.x-brightgreen)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-DB-blue)
+![Docker](https://img.shields.io/badge/Docker-Containerized-lightblue)
+![AWS SES](https://img.shields.io/badge/AWS-SES-orange)
+![React](https://img.shields.io/badge/Frontend-React-61dafb)
+
+
 This is a full-stack portfolio project designed to showcase my backend and frontend development skills.  
 It includes a blog, a CMS, user management, and authentication — all fully functional and containerized.
 
